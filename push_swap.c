@@ -16,9 +16,10 @@ int main(int ac, char **av)
     }
     else if (ac == 2)
     {
-        variables->matriz_number = validation_number(av[1]);
-        variables->list_number = convert_number_to_int(variables->matriz_number);
-        validation_duplicate_numbers(variables->list_number);
+        variables->matriz_number = validation_number(variables, av[1]);
+        variables->list_number = convert_number_to_int(variables);
+        validation_duplicate_numbers(variables);
+        free_variables(variables);
 
     }
     return (0);

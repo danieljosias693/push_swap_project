@@ -25,8 +25,8 @@ t_stack *create_new_stack(int number);
 void free_stack(t_stack *stack);
 void add_new_node(t_stack **head, int number);
 void print_stack(t_stack *stack);
-char **validation_number(const char *str);
-void validation_duplicate_numbers(int *list_number);
-int *convert_number_to_int(char **str);
-void free_variables(t_variables *variables)
+void validation_duplicate_numbers(t_variables *variables);
+void free_variables(t_variables *variables);
+char  **validation_number(t_variables *variables, const char *str);
+int *convert_number_to_int(t_variables *variables);
 #endif
