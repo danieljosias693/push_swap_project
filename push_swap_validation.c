@@ -11,27 +11,24 @@ static void is_valid_number(char *str)
 	{
 		if (!ft_isdigit(str[i]))
         {
-            printf("ERROR!");
+            printf("ERROR");
 			exit (0);
         }
 		i++;
 	}
-    printf("valid number!");
 }
 
 static void verify_number_in_limit(t_variables *variables, char *str)
 {
-    int num;
+    long int num;
 
-    num = ft_atoi(str);
+    num = ft_atol(str);
     if (num < INT_MIN || num > INT_MAX)
     {
-        printf("ERROR!");
+        printf("ERROR");
         free_variables(variables);
         exit(0);
     }
-    else
-        printf("Esta dentro do limite %d < %d",num, INT_MAX);
 }
 
 char  **validation_number(t_variables *variables, const char *str)
@@ -58,12 +55,11 @@ void validation_duplicate_numbers(t_variables *variables)
     while (variables->list_number[i])
     {
         j = i + 1;
-        printf("\n%d",variables->list_number[i]);
         while (variables->list_number[j])
         {
             if (variables->list_number[i] == variables->list_number[j])
             {
-                printf("ERROR!");
+                printf("ERROR");
                 free_variables(variables);
                 exit(0);
             }
@@ -78,11 +74,43 @@ int *convert_number_to_int(t_variables *variables)
     int *array_num;
 
     i = 0;
+
     array_num = (int *)malloc(sizeof(int) * 100);
+    ft_memset(array_num, 0, 100 * sizeof(int));
     while (variables->matriz_number[i])
     {
         array_num[i] = ft_atoi(variables->matriz_number[i]);
         i++;
     }
     return (array_num);
+}
+
+char **validation_number_2_args(int ac, char **av)
+{
+    int i;
+    int j = 0;
+    int k = 0;
+    char **mat;
+    char **tmp;
+
+    i = 1;
+    tmp = NULL;
+    mat = (char **)malloc(sizeof(char *) * 4096);
+
+    if (!mat)
+        return (NULL);
+    while(i <= ac)
+    {
+        j = 0;
+        tmp = ft_split(av[i], ' ');
+        while(tmp[j])
+        {
+            mat[k] = tmp[j];
+            j++;
+            k++;
+        }
+        i++;
+    }
+    free_matriz(tmp, j);
+    return (mat);
 }
