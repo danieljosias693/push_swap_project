@@ -22,7 +22,9 @@ int main(int ac, char **av)
     }
     else
     {
-        variables->matriz_number = validation_number_2_args(ac,av);
+        variables->matriz_number = validation_number_2_args(variables, ac,av);
+        variables->list_number = convert_number_to_int(variables);
+        validation_duplicate_numbers(variables);
         int i = 0;
         while (variables->matriz_number[i])
         {

@@ -44,18 +44,22 @@ char  **validation_number(t_variables *variables, const char *str)
         verify_number_in_limit(variables, tmp[i]);
         i++;
     }
+    variables->size_of_list = i;
     return tmp;
 }
+
 void validation_duplicate_numbers(t_variables *variables)
 {
     int i;
     int j;
+    int size;
 
+    size = variables->size_of_list;
     i = 0;
-    while (variables->list_number[i])
+    while (i < size)
     {
         j = i + 1;
-        while (variables->list_number[j])
+        while (j < size)
         {
             if (variables->list_number[i] == variables->list_number[j])
             {
@@ -85,7 +89,7 @@ int *convert_number_to_int(t_variables *variables)
     return (array_num);
 }
 
-char **validation_number_2_args(int ac, char **av)
+char **validation_number_2_args(t_variables *variables, int ac, char **av)
 {
     int i;
     int j = 0;
@@ -94,9 +98,7 @@ char **validation_number_2_args(int ac, char **av)
     char **tmp;
 
     i = 1;
-    tmp = NULL;
     mat = (char **)malloc(sizeof(char *) * 4096);
-
     if (!mat)
         return (NULL);
     while(i <= ac)
@@ -105,12 +107,15 @@ char **validation_number_2_args(int ac, char **av)
         tmp = ft_split(av[i], ' ');
         while(tmp[j])
         {
+            is_valid_number(tmp[j]);
+            verify_number_in_limit(variables, tmp[j]);
             mat[k] = tmp[j];
             j++;
             k++;
         }
         i++;
     }
+    variables->size_of_list = k;
     free_matriz(tmp, j);
     return (mat);
 }
