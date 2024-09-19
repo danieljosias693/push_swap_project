@@ -30,7 +30,7 @@ void validation_duplicate_numbers(t_variables *variables);
 void free_variables(t_variables *variables);
 void free_matriz(char **mat , int size);
 char  **validation_number(t_variables *variables, const char *str);
-char **validation_number_2_args(t_variables *variables, int ac, char **av);
+void validation_number_2_args(t_variables *variables, int ac, char **av);
 int *convert_number_to_int(t_variables *variables);
-long int ft_atol(const char *str);
+int ft_atol(const char *str);
 #endif

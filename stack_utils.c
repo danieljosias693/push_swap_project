@@ -27,29 +27,30 @@ t_stack *create_new_stack(int number)
 // }
 void free_variables(t_variables *variables)
 {
-	int i;
-
+    int i;
 	i = 0;
+
 	if (!variables)
 		return;
-	if (!variables->matriz_number)
-		return;
-	while (variables->matriz_number[i])
-	{
-		free(variables->matriz_number[i]);
-		i++;
-	}
-	free(variables->matriz_number);
-	if (variables->list_number)
-		free(variables->list_number);
-	free(variables);
+    if (variables->list_number)
+        free(variables->list_number);
+    if (variables->matriz_number)
+    {
+        while (variables->matriz_number[i])
+        {
+            free(variables->matriz_number[i]);
+            i++;
+        }
+        free(variables->matriz_number);
+    }
+    free(variables); 
 }
 
-long int ft_atol(const char *str)
+int ft_atol(const char *str)
 {
 	int sign;
 	int i;
-	long int res;
+	long long int res;
 
 	i = 0;
 	res = 0;
@@ -63,9 +64,13 @@ long int ft_atol(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = res * 10 + (str[i] - '0');
+		if (sign == -1 && -res < INT_MIN)
+			return (0);
+		else if (sign == 1 && res > INT_MAX)
+			return (0);
 		i++;
 	}
-	return (res * sign);
+	return (-1);
 }
 
 void free_matriz(char **mat , int size)
@@ -73,7 +78,11 @@ void free_matriz(char **mat , int size)
 	int i;
 
 	i = 0;
-	while (i < size)
+    if (!mat)
+	{
+        return;
+	}
+	while (i <= size)
 	{
 		free(mat[i]);
 		i++;

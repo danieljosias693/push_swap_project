@@ -1,33 +1,33 @@
 #include "push_swap.h"
 
-static void is_valid_number(char *str)
+static void is_valid_number(t_variables *variables, char *str, char **tmp, int size)
 {
 	int	i;
 
 	i = 0;
-	if (str[i] == '-' || str[i] == '+')
+	if ((str[i] == '-' || str[i] == '+') && str[i + 1] != '\0')
 		i++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
         {
             printf("ERROR");
+            free_matriz(tmp, size);
+            free_variables(variables);
 			exit (0);
         }
 		i++;
 	}
 }
 
-static void verify_number_in_limit(t_variables *variables, char *str)
+static void verify_number_in_limit(t_variables *variables, char *str, char **tmp, int size)
 {
-    long int num;
-
-    num = ft_atol(str);
-    if (num < INT_MIN || num > INT_MAX)
+    if (!ft_atol(str))
     {
         printf("ERROR");
+        free_matriz(tmp, size);
         free_variables(variables);
-        exit(0);
+        exit(1);
     }
 }
 
@@ -40,8 +40,8 @@ char  **validation_number(t_variables *variables, const char *str)
     tmp = ft_split(str, ' ');
     while (tmp[i])
     {
-        is_valid_number(tmp[i]);
-        verify_number_in_limit(variables, tmp[i]);
+        is_valid_number(variables, tmp[i], tmp, i);
+        verify_number_in_limit(variables, tmp[i], tmp, i);
         i++;
     }
     variables->size_of_list = i;
@@ -72,16 +72,15 @@ void validation_duplicate_numbers(t_variables *variables)
         i++;
     }
 }
+
 int *convert_number_to_int(t_variables *variables)
 {
     int i;
     int *array_num;
 
     i = 0;
-
-    array_num = (int *)malloc(sizeof(int) * 100);
-    ft_memset(array_num, 0, 100 * sizeof(int));
-    while (variables->matriz_number[i])
+    array_num = (int *)malloc(sizeof(int) * variables->size_of_list);
+    while (i < variables->size_of_list)
     {
         array_num[i] = ft_atoi(variables->matriz_number[i]);
         i++;
@@ -89,33 +88,34 @@ int *convert_number_to_int(t_variables *variables)
     return (array_num);
 }
 
-char **validation_number_2_args(t_variables *variables, int ac, char **av)
+void validation_number_2_args(t_variables *variables, int ac, char **av)
 {
     int i;
-    int j = 0;
-    int k = 0;
-    char **mat;
+    int j;
+    int k;
     char **tmp;
 
     i = 1;
-    mat = (char **)malloc(sizeof(char *) * 4096);
-    if (!mat)
-        return (NULL);
-    while(i <= ac)
+    k = 0;
+    tmp = NULL;
+    variables->matriz_number = (char **)malloc(sizeof(char *) * (ac * 10));
+    for (int x = 0; x < (ac * 10); x++)
+        variables->matriz_number[x] = NULL;
+    while(i < ac)
     {
         j = 0;
         tmp = ft_split(av[i], ' ');
         while(tmp[j])
         {
-            is_valid_number(tmp[j]);
-            verify_number_in_limit(variables, tmp[j]);
-            mat[k] = tmp[j];
+            is_valid_number(variables, tmp[j], tmp, j);
+            verify_number_in_limit(variables, tmp[j], tmp, j);
+            variables->matriz_number[k] = ft_strdup(tmp[j]);
             j++;
             k++;
         }
+        free_matriz(tmp, j);
         i++;
     }
     variables->size_of_list = k;
-    free_matriz(tmp, j);
-    return (mat);
+    variables->matriz_number[k]= NULL;
 }
