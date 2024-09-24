@@ -11,20 +11,20 @@ t_stack *create_new_stack(int number)
 	new_node->next = NULL;
 	return (new_node);
 }
-// void free_stack(t_stack *stack)
-// {
-// 	t_stack *tmp;
+void free_stack(t_stack *stack)
+{
+	t_stack *tmp;
 
-// 	tmp = NULL;
-// 	if (!stack)
-// 		return ;
-// 	while (stack != NULL)
-// 	{
-// 		tmp = stack->next;
-// 		free(stack);
-// 		stack = tmp;
-// 	}
-// }
+	tmp = NULL;
+	if (!stack)
+		return ;
+	while (stack != NULL)
+	{
+		tmp = stack->next;
+		free(stack);
+		stack = tmp;
+	}
+}
 void free_variables(t_variables *variables)
 {
     int i;
@@ -88,4 +88,11 @@ void free_matriz(char **mat , int size)
 		i++;
 	}
 	free(mat);
+}
+int ft_stack_size(t_stack *stack)
+{
+	if (stack == NULL)
+		return (0);
+	else
+		return (1 + ft_stack_size(stack));
 }

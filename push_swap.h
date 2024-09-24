@@ -12,7 +12,7 @@
 typedef struct s_stack
 {
 	int number;
-	struct t_stack *next;
+	struct s_stack *next;
 } t_stack;
 
 typedef struct s_variables
@@ -29,8 +29,9 @@ void print_stack(t_stack *stack);
 void validation_duplicate_numbers(t_variables *variables);
 void free_variables(t_variables *variables);
 void free_matriz(char **mat , int size);
-char  **validation_number(t_variables *variables, const char *str);
 void validation_number_2_args(t_variables *variables, int ac, char **av);
+void init_stack(t_stack **stack_a , t_variables *variables);
+char  **validation_number(t_variables *variables, const char *str);
 int *convert_number_to_int(t_variables *variables);
 int ft_atol(const char *str);
 #endif

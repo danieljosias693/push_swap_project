@@ -13,6 +13,7 @@ LIBFTDIR = libft
 SRCS = $(SRCDIR)/push_swap.c \
        $(SRCDIR)/stack_utils.c \
 	   $(SRCDIR)/push_swap_validation.c \
+	   $(SRCDIR)/stack.c \
 
 OBJS = $(SRCS:.c=.o)
 
