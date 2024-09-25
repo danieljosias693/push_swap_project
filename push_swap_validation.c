@@ -11,7 +11,7 @@ static void is_valid_number(t_variables *variables, char *str, char **tmp, int s
 	{
 		if (!ft_isdigit(str[i]))
         {
-            printf("ERROR");
+            printf("ERRORs");
             free_matriz(tmp, size);
             free_variables(variables);
 			exit (0);
@@ -82,7 +82,7 @@ int *convert_number_to_int(t_variables *variables)
     array_num = (int *)malloc(sizeof(int) * variables->size_of_list);
     while (i < variables->size_of_list)
     {
-        array_num[i] = ft_atoi(variables->matriz_number[i]);
+        array_num[i] = + ft_atoi(variables->matriz_number[i]);
         i++;
     }
     return (array_num);

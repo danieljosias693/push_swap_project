@@ -16,7 +16,7 @@ void sa(t_stack **a, int i)
         write(1,"sa\n",3);
 }
 
-sb(t_stack **b, int i)
+void sb(t_stack **b, int i)
 {
     t_stack *first;
     t_stack *second;
@@ -106,4 +106,52 @@ void rr(t_stack **a, t_stack **b)
     ra(a, 1);
     rb(b, 1);
     write(1, "rr\n", 3);
+}
+
+void rra(t_stack **a, int i)
+{
+    t_stack *first;
+    t_stack *last;
+
+    if (!(*a) || !(*a)->next)
+        return;
+    first = NULL;
+    last = (*a);
+    while (last->next)
+    {
+        first = last;
+        last = last->next;
+    }
+    first->next = NULL;
+    last->next = *a;
+    (*a) = last;
+    if (i == 0)
+        write(1, "rra\n", 4);
+}
+
+void rrb(t_stack **b, int i)
+{
+    t_stack *first;
+    t_stack *last;
+
+    if ((!*b) || !(*b)->next)
+        return;
+    first = NULL;
+    last = *b;
+    while (last->next)
+    {
+        first = last;
+        last = last->next;
+    }
+    first->next = NULL;
+    last->next = (*b);
+    *b = last;
+    if (i == 0)
+        write(1, "rrb\n", 4);
+}
+
+void rrr(t_stack **a, t_stack **b)
+{
+    rra(a, 1);
+    rrb(b, 1);
 }

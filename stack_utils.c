@@ -11,6 +11,7 @@ t_stack *create_new_stack(int number)
 	new_node->next = NULL;
 	return (new_node);
 }
+
 void free_stack(t_stack *stack)
 {
 	t_stack *tmp;
@@ -25,11 +26,12 @@ void free_stack(t_stack *stack)
 		stack = tmp;
 	}
 }
+
 void free_variables(t_variables *variables)
 {
     int i;
-	i = 0;
 
+	i = 0;
 	if (!variables)
 		return;
     if (variables->list_number)
@@ -89,10 +91,33 @@ void free_matriz(char **mat , int size)
 	}
 	free(mat);
 }
+
 int ft_stack_size(t_stack *stack)
 {
-	if (stack == NULL)
+	if (stack == 0)
 		return (0);
 	else
-		return (1 + ft_stack_size(stack));
+		return (1 + ft_stack_size(stack->next));
+}
+int get_position_min_in_stack(t_stack *stack)
+{
+	int min_value;
+	int i;
+	t_stack *tmp;
+
+	i = 1;
+	tmp = stack;
+	min_value = stack->number;
+	while (stack)
+	{
+		if (stack->number < min_value)
+			min_value = stack->number;
+		stack = stack->next;
+	}
+	while (min_value != tmp->number)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }

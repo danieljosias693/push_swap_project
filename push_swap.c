@@ -8,7 +8,15 @@ static void init_push_swap(t_variables *variables)
     stack_a = NULL;
     stack_b = NULL;
     init_stack(&stack_a , variables);
-
+    if (ft_stack_size(stack_a) == 2)
+        sort_2_element(&stack_a);
+    else if (ft_stack_size(stack_a) == 3)
+        sort_3_element(&stack_a);
+    else if (ft_stack_size(stack_a) > 3 && ft_stack_size(stack_a) < 6)
+        sort_4_element(&stack_a, &stack_b);
+    printf("SORT STACK:\n");
+    print_stack(stack_a);
+    print_stack(stack_b);
     free_stack(stack_a);
 }
 
@@ -18,6 +26,7 @@ int main(int ac, char **av)
 
     variables = (t_variables *)malloc(sizeof(t_variables));
     variables->matriz_number = NULL;
+    variables->list_number = NULL;
     if (ac < 2)
         return (free_variables(variables), 0);
     else if (ac == 2)
