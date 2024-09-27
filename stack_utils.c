@@ -75,7 +75,7 @@ int ft_atol(const char *str)
 	return (-1);
 }
 
-void free_matriz(char **mat , int size)
+void free_matriz(char **mat)
 {
 	int i;
 
@@ -84,7 +84,7 @@ void free_matriz(char **mat , int size)
 	{
         return;
 	}
-	while (i <= size)
+	while (mat[i])
 	{
 		free(mat[i]);
 		i++;

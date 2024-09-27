@@ -31,7 +31,7 @@ int main(int ac, char **av)
         return (free_variables(variables), 0);
     else if (ac == 2)
     {
-        variables->matriz_number = validation_number(variables, av[1]);
+        validation_number(variables, av[1]);
         variables->list_number = convert_number_to_int(variables);
         validation_duplicate_numbers(variables);
         init_push_swap(variables);
