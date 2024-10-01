@@ -12,11 +12,11 @@ static void init_push_swap(t_variables *variables)
         sort_2_element(&stack_a);
     else if (ft_stack_size(stack_a) == 3)
         sort_3_element(&stack_a);
-    else if (ft_stack_size(stack_a) > 3 && ft_stack_size(stack_a) < 6)
+    else if (ft_stack_size(stack_a) >= 4 && ft_stack_size(stack_a) <= 5)
         sort_4_element(&stack_a, &stack_b);
-    printf("SORT STACK:\n");
-    print_stack(stack_a);
-    print_stack(stack_b);
+    else if (ft_stack_size(stack_a) > 5)
+        radix_sort(&stack_a, &stack_b);
+    // print_stack(stack_a);
     free_stack(stack_a);
 }
 
@@ -37,7 +37,7 @@ int main(int ac, char **av)
         init_push_swap(variables);
         free_variables(variables);
     }
-    else
+    else if (ac > 2)
     {
         validation_number_2_args(variables, ac, av);
         variables->list_number = convert_number_to_int(variables);

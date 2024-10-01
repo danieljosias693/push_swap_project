@@ -11,7 +11,7 @@ static void is_valid_number(t_variables *variables, char *str, char **tmp)
 	{
 		if (!ft_isdigit(str[i]))
         {
-            printf("ERROR");
+            write(2, "Error\n", 6);
             free_matriz(tmp);
             free_variables(variables);
 			exit (0);
@@ -24,7 +24,7 @@ static void verify_number_in_limit(t_variables *variables, char *str, char **tmp
 {
     if (!ft_atol(str))
     {
-        printf("ERROR");
+        write(2, "Error\n", 6);
         free_matriz(tmp);
         free_variables(variables);
         exit(1);
@@ -63,7 +63,7 @@ void validation_duplicate_numbers(t_variables *variables)
         {
             if (variables->list_number[i] == variables->list_number[j])
             {
-                printf("ERROR");
+                write(2, "Error\n", 6);
                 free_variables(variables);
                 exit(0);
             }

@@ -44,5 +44,18 @@ void init_stack(t_stack **stack_a , t_variables *variables)
         add_new_node(stack_a, variables->list_number[i]);
         i++;
     }
-    print_stack(*stack_a);
+}
+int is_sorted(t_stack *a) 
+{
+    t_stack *current;
+    
+    current = a;
+    while (current->next != NULL) {
+        if (current->number > current->next->number)
+        {
+            return (1);
+        }
+        current = current->next;
+    }
+    return (0);
 }
