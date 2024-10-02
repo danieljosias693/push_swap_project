@@ -1,20 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dvemba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/02 17:38:26 by dvemba            #+#    #+#             */
+/*   Updated: 2024/10/02 17:38:29 by dvemba           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-t_stack *create_new_stack(int number)
+void	free_stack(t_stack *stack)
 {
-	t_stack	*new_node;
-
-	new_node = (t_stack *)malloc(sizeof(t_stack));
-	if (!new_node)
-		return (NULL);
-	new_node->number = number;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-void free_stack(t_stack *stack)
-{
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	tmp = NULL;
 	if (!stack)
@@ -27,32 +27,32 @@ void free_stack(t_stack *stack)
 	}
 }
 
-void free_variables(t_variables *variables)
+void	free_variables(t_variables *variables)
 {
-    int i;
+	int	i;
 
 	i = 0;
 	if (!variables)
-		return;
-    if (variables->list_number)
-        free(variables->list_number);
-    if (variables->matriz_number)
-    {
-        while (variables->matriz_number[i])
-        {
-            free(variables->matriz_number[i]);
-            i++;
-        }
-        free(variables->matriz_number);
-    }
-    free(variables); 
+		return ;
+	if (variables->list_number)
+		free(variables->list_number);
+	if (variables->matriz_number)
+	{
+		while (variables->matriz_number[i])
+		{
+			free(variables->matriz_number[i]);
+			i++;
+		}
+		free(variables->matriz_number);
+	}
+	free(variables);
 }
 
-int ft_atol(const char *str)
+int	ft_atol(const char *str)
 {
-	int sign;
-	int i;
-	long long int res;
+	int				sign;
+	int				i;
+	long long int	res;
 
 	i = 0;
 	res = 0;
@@ -66,7 +66,7 @@ int ft_atol(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = res * 10 + (str[i] - '0');
-		if (sign == -1 && -res < INT_MIN)
+		if (sign == -1 && (-res) < INT_MIN)
 			return (0);
 		else if (sign == 1 && res > INT_MAX)
 			return (0);
@@ -75,14 +75,14 @@ int ft_atol(const char *str)
 	return (-1);
 }
 
-void free_matriz(char **mat)
+void	free_matriz(char **mat)
 {
-	int i;
+	int	i;
 
 	i = 0;
-    if (!mat)
+	if (!mat)
 	{
-        return;
+		return ;
 	}
 	while (mat[i])
 	{
@@ -92,18 +92,11 @@ void free_matriz(char **mat)
 	free(mat);
 }
 
-int ft_stack_size(t_stack *stack)
+int	get_position_min_in_stack(t_stack *stack)
 {
-	if (stack == 0)
-		return (0);
-	else
-		return (1 + ft_stack_size(stack->next));
-}
-int get_position_min_in_stack(t_stack *stack)
-{
-	int min_value;
-	int i;
-	t_stack *tmp;
+	int		min_value;
+	int		i;
+	t_stack	*tmp;
 
 	i = 1;
 	tmp = stack;

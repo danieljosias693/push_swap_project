@@ -1,46 +1,64 @@
-# Nome do executável
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dvemba <marvin@42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/02 17:39:28 by dvemba            #+#    #+#              #
+#    Updated: 2024/10/02 17:39:30 by dvemba           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+#Nome do executavel.
 NAME = push_swap
 
-# Compilador e flags
+#Directorio actual.
+DIR = .
+
+#Compilador.
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(LIBFTDIR)
 
-# Diretórios
-SRCDIR = .
-LIBFTDIR = libft
+LIBFT = libft
+#Flags
+FLGS = -Wall -Wextra -Werror -I$(LIBFT)
 
-# Arquivos fonte e objetos
-SRCS = $(SRCDIR)/push_swap.c \
-       $(SRCDIR)/stack_utils.c \
-	   $(SRCDIR)/push_swap_validation.c \
-	   $(SRCDIR)/stack.c \
-	   $(SRCDIR)/stack_sort.c \
-	   $(SRCDIR)/stack_operations.c \
+#Lista todos os arquivos fontes.
+SRC = $(DIR)/push_swap_validation.c \
+		$(DIR)/push_swap.c \
+		$(DIR)/stack_operations.c \
+		$(DIR)/stack_sort.c \
+		$(DIR)/stack_utils.c \
+		$(DIR)/stack.c \
+		$(DIR)/push_swap_validation_second.c \
+		$(DIR)/stack_operations_second.c \
+		$(DIR)/stack_operations_third.c \
+		$(DIR)/stack_sort_second.c \
 
-OBJS = $(SRCS:.c=.o)
+#Lista todos arquivos objectos.
+OBJ = $(SRC:.c=.o)
 
-# Regras
-all: $(NAME)
+#Execucao principal.
+all:	$(NAME)
 
-$(NAME): $(OBJS)
-	@$(MAKE) -C $(LIBFTDIR)
-	@$(CC) $(CFLAGS) -o $@ $(OBJS) -L$(LIBFTDIR) -lft
-	@echo "Compilação concluída!"
+$(NAME): 	$(OBJ)
+	$(MAKE) -C $(LIBFT)
+	$(CC) $(FLGS) -o $@ $(OBJ) -L$(LIBFT) -lft
+	@echo "Compilacao concluida!"
 
-$(SRCDIR)/%.o: $(SRCDIR)/%.c $(SRCDIR)/push_swap.h
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "Compilado $<"
+#Limpa os arquivos objectos.
+clean: 
+	$(MAKE) clean -C $(LIBFT)
+	@rm -f $(OBJ)
+	@echo "Arquivos objectos limpos."
 
-clean:
-	@rm -f $(OBJS)
-	@$(MAKE) clean -C $(LIBFTDIR)
-	@echo "Arquivos objeto removidos!"
-
+#Limpa os arquivos objectos e o executavel.
 fclean: clean
+	$(MAKE) fclean -C $(LIBFT)
 	@rm -f $(NAME)
-	@$(MAKE) fclean -C $(LIBFTDIR)
-	@echo "Executável removido!"
+	@echo "Arquivos objectos e executavel limpos."
 
+#recompila o projecto
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: fclean clean re all
