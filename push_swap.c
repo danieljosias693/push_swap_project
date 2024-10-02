@@ -12,6 +12,36 @@
 
 #include "push_swap.h"
 
+static int	contains_digits(const char *str)
+{
+	while (*str)
+	{
+		if (ft_isdigit((unsigned char)*str))
+		{
+			return (1);
+		}
+		str++;
+	}
+	return (0);
+}
+
+static void	there_space(t_variables *variables, char **str)
+{
+	int	i;
+
+	i = 1;
+	while (str[i])
+	{
+		if (ft_strlen(str[i]) == 0 || contains_digits(str[i]) == 0)
+		{
+			write(2, "Error\n", 6);
+			free_variables(variables);
+			exit(1);
+		}
+		i++;
+	}
+}
+
 static void	init_push_swap(t_variables *variables)
 {
 	t_stack	*stack_a;
@@ -38,6 +68,7 @@ int	main(int ac, char **av)
 	variables = (t_variables *)malloc(sizeof(t_variables));
 	variables->matriz_number = NULL;
 	variables->list_number = NULL;
+	there_space(variables, av);
 	if (ac < 2)
 		return (free_variables(variables), 0);
 	else if (ac == 2)
