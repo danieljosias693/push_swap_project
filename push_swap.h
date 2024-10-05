@@ -60,7 +60,7 @@ void				validation_number_2_args(t_variables *variables, int ac,
 						char **av);
 void				init_stack(t_stack **stack_a, t_variables *variables);
 void				validation_number(t_variables *variables, const char *str);
-void				radix_sort(t_stack **stack_a, t_stack **stack_b, int size);
+void				radix_sort(t_stack **stack_a, t_stack **stack_b);
 int					*convert_number_to_int(t_variables *variables);
 int					ft_atol(const char *str);
 int					ft_stack_size(t_stack *stack);

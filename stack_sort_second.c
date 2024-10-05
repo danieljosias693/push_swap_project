@@ -65,31 +65,32 @@ static void	replace_stack_with_index(t_stack *stack, int *array, int size)
 	}
 }
 
-void	radix_sort(t_stack **stack_a, t_stack **stack_b, int size)
+void radix_sort(t_stack **stack_a, t_stack **stack_b)
 {
-	int	*array;
-	int	bit_mask;
-	int	original_size;
-	int	i;
+    int array[ft_stack_size(*stack_a)];
+    int max_bits;
+    int bit_mask;
+    int original_size;
+    int i;
 
-	i = -1;
-	array = (int *)malloc(sizeof(int) * size);
-	map_stack_to_array(*stack_a, array);
-	bubble_sort(array, size);
-	replace_stack_with_index(*stack_a, array, size);
-	while (i++ < get_max_bits(*stack_a))
-	{
-		bit_mask = 1 << i;
-		original_size = size;
-		while (original_size--)
-		{
-			if (((*stack_a)->number & bit_mask) == 0)
-				pb(stack_a, stack_b);
-			else
-				ra(stack_a, 0);
-		}
-		while (*stack_b)
-			pa(stack_a, stack_b);
-	}
-	free(array);
+    i = 0;
+    map_stack_to_array(*stack_a, array);
+    bubble_sort(array, ft_stack_size(*stack_a));
+    replace_stack_with_index(*stack_a, array, ft_stack_size(*stack_a));
+    max_bits = get_max_bits(*stack_a);
+    while (i < max_bits) 
+    { 
+        bit_mask = 1 << i;
+        original_size = ft_stack_size(*stack_a);
+        while (original_size--) 
+        {
+            if (((*stack_a)->number & bit_mask) == 0) 
+                pb(stack_a, stack_b);
+            else 
+                ra(stack_a, 0);
+        }
+        while (*stack_b) 
+            pa(stack_a, stack_b);
+        i++;
+    }
 }

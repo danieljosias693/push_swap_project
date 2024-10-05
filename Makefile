@@ -17,7 +17,7 @@ NAME = push_swap
 DIR = .
 
 #Compilador.
-CC = gcc
+CC = cc
 
 LIBFT = libft
 #Flags
