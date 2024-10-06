@@ -57,7 +57,11 @@ static void	init_push_swap(t_variables *variables)
 	else if (ft_stack_size(stack_a) >= 4 && ft_stack_size(stack_a) <= 5)
 		sort_4_and_5_element(&stack_a, &stack_b);
 	else if (ft_stack_size(stack_a) > 5)
-		radix_sort(&stack_a, &stack_b);
+	{
+		if (!is_sorted(stack_a))
+			return ;
+		radix_sort(&stack_a, &stack_b, ft_stack_size(stack_a));
+	}
 	free_stack(stack_a);
 }
 
